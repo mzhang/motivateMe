@@ -19,4 +19,10 @@ async def beep(ctx):
 async def on_ready():
     print('aye aye captain')
 
+
+@client.command(aliases=['zen'])
+async def motivate(ctx):
+    res = requests.get('https://inspirobot.me/api?generate=true')
+    await ctx.send(res.text)
+
 client.run(token)

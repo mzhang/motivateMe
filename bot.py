@@ -18,11 +18,19 @@ async def beep(ctx):
 @client.event
 async def on_ready():
     print('aye aye captain')
+    await client.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name='the sun rise 🧘'))
 
+@client.command()
+async def help(ctx):
+    await ctx.send("Look towards the light and ask. `.meditate`.")
 
-@client.command(aliases=['zen'])
+@client.command(aliases=['zen', 'meditate'])
 async def motivate(ctx):
     res = requests.get('https://inspirobot.me/api?generate=true')
-    await ctx.send(res.text)
+    
+    if (res.status_code == requests.codes.ok):
+        await ctx.send(res.text)
+    else:
+        await ctx.send("Tranquility not yet available.")
 
 client.run(token)

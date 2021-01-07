@@ -51,15 +51,15 @@ def play(voice, id):
     res = requests.get('https://inspirobot.me/api?generateFlow=1&sessionID='+id)
     audio_source = discord.FFmpegPCMAudio(res.json()['mp3'])
     print(len(voice.channel.members))
-    if len(voice.channel.members) == 1:
-        print('leaving!' + str(voice.channel.members))
-        coroutine = voice.disconnect()
-        future = asyncio.run_coroutine_threadsafe(coroutine, client.loop)
-        try:
-            future.result()
-        except:
-            print('future.result() failed!')
-            pass
+    # if len(voice.channel.members) == 1:
+    #     print('leaving!' + str(voice.channel.members))
+    #     coroutine = voice.disconnect()
+    #     future = asyncio.run_coroutine_threadsafe(coroutine, client.loop)
+    #     try:
+    #         future.result()
+    #     except:
+    #         print('future.result() failed!')
+    #         pass
     print('play start!')
     voice.play(audio_source, after=lambda e: play(voice, id))
     

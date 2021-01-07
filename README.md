@@ -1,9 +1,15 @@
 # zenMachine
-a discord bot for rainy days
+a discord bot for living, laughing and loving
 
-A discord bot for you need a push in the right direction but no friends to help you.
+a discord bot for when you need a push in the right direction.
 
-[.motivate] to get yourself going again.
+a discord bot for when you need focus. 
+
+a discord bot for when you need resolve. 
+
+[.motivate] for a dose of motivation. 
+
+[.meditate] for a guided meditation session. How long? Forever.  
 
 Invite at: 
 

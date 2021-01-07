@@ -8,6 +8,8 @@ import nacl
 from bs4 import BeautifulSoup
 import requests
 
+import asyncio
+
 load_dotenv()
 token = os.getenv('DISCORD_TOKEN')
 
@@ -34,7 +36,7 @@ async def motivate(ctx):
     if (res.status_code == requests.codes.ok):
         await ctx.send(res.text)
     else:
-        await ctx.send("Tranquility not yet available in your area.")
+        await ctx.send("Tranquility not yet available in your area. .")
         
 @client.command()
 async def leave(ctx):
@@ -44,6 +46,16 @@ async def leave(ctx):
 def play(voice, id):
     res = requests.get('https://inspirobot.me/api?generateFlow=1&sessionID='+id)
     audio_source = discord.FFmpegPCMAudio(res.json()['mp3'])
+    print(len(voice.channel.members))
+    if len(voice.channel.members) == 1:
+        print('leaving!' + str(voice.channel.members))
+        coroutine = voice.disconnect()
+        future = asyncio.run_coroutine_threadsafe(coroutine, client.loop)
+        try:
+            future.result()
+        except:
+            print('future.result() failed!')
+            pass
     print('play start!')
     voice.play(audio_source, after=lambda e: play(voice, id))
     

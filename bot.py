@@ -82,6 +82,8 @@ async def guidedMeditation(ctx):
         voice = await channel.connect()
     await ctx.send(f"Close your eyes. Focus. Breathe.")
 
-    play(voice,id)
+    res = requests.get('https://inspirobot.me/api?generateFlow=1&sessionID='+id)
+    audio_source = discord.FFmpegPCMAudio(res.json()['mp3'])
+    voice.play(audio_source, after=lambda e: play(voice, id))
 
 client.run(token)

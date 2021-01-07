@@ -36,11 +36,21 @@ async def motivate(ctx):
     else:
         await ctx.send("Tranquility not yet available in your area. .")
         
+@client.command()
+async def leave(ctx):
+    voice = discord.utils.get(client.voice_clients,guild=ctx.guild)
+    await voice.disconnect()
+
+def play(voice, id):
+    res = requests.get('https://inspirobot.me/api?generateFlow=1&sessionID='+id)
+    audio_source = discord.FFmpegPCMAudio(res.json()['mp3'])
+    print('play start!')
+    voice.play(audio_source)
+    
 
 @client.command(aliases=['gm','guide','guided','guidedmeditation'])
 async def guidedMeditation(ctx):
-    id = requests.get('https://inspirobot.me//api?getSessionID=1').text
-    res = requests.get('https://inspirobot.me/api?generateFlow=1&sessionID='+id)
+    id = requests.get('https://inspirobot.me/api?getSessionID=1').text
 
     try: 
         channel = ctx.author.voice.channel
@@ -56,10 +66,9 @@ async def guidedMeditation(ctx):
         voice = await channel.connect()
     await ctx.send(f"Close your eyes. Focus. Breathe.")
 
-    audio_source = discord.FFmpegPCMAudio(res.json()['mp3'])
-    voice.play(audio_source,after=None)
+    play(voice,id)
 
-    await channel.disconnect()
+    
     
     
 client.run(token)

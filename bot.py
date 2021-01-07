@@ -34,13 +34,12 @@ async def motivate(ctx):
     if (res.status_code == requests.codes.ok):
         await ctx.send(res.text)
     else:
-        await ctx.send("Tranquility not yet available in your area. .")
+        await ctx.send("Tranquility not yet available in your area.")
         
 @client.command()
 async def leave(ctx):
     voice = discord.utils.get(client.voice_clients,guild=ctx.guild)
     await voice.disconnect()
-    
 
 def play(voice, id):
     res = requests.get('https://inspirobot.me/api?generateFlow=1&sessionID='+id)
@@ -69,7 +68,4 @@ async def guidedMeditation(ctx):
 
     play(voice,id)
 
-    
-    
-    
 client.run(token)

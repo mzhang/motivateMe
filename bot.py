@@ -27,9 +27,13 @@ async def on_ready():
 
 @client.command()
 async def help(ctx):
-    await ctx.send("Look towards the light and ask. `.meditate`.")
+    embed=discord.Embed(title="To those who seek guidance:")
+    embed.add_field(name="Motivation comes at a cost. ", value="The cost of you typing `.motivate`. Or `.zen`.", inline=False)
+    embed.add_field(name="Inner piece takes time. And guidance.", value="Think to yourself: `.meditate`. Concentrate. Focus. Then type `.meditate`.", inline=False)
+    embed.set_footer(text="Not all who are lost are wanderers. ")
+    await ctx.send(embed=embed)
 
-@client.command(aliases=['zen', 'meditate'])
+@client.command(aliases=['zen'])
 async def motivate(ctx):
     res = requests.get('https://inspirobot.me/api?generate=true')
     
@@ -60,7 +64,7 @@ def play(voice, id):
     voice.play(audio_source, after=lambda e: play(voice, id))
     
 
-@client.command(aliases=['gm','guide','guided','guidedmeditation'])
+@client.command(aliases=['gm','meditate','guided','guidedmeditation'])
 async def guidedMeditation(ctx):
     id = requests.get('https://inspirobot.me/api?getSessionID=1').text
 

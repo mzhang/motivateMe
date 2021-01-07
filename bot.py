@@ -45,7 +45,7 @@ def play(voice, id):
     res = requests.get('https://inspirobot.me/api?generateFlow=1&sessionID='+id)
     audio_source = discord.FFmpegPCMAudio(res.json()['mp3'])
     print('play start!')
-    voice.play(audio_source)
+    voice.play(audio_source, after=lambda e: play(voice, id))
     
 
 @client.command(aliases=['gm','guide','guided','guidedmeditation'])

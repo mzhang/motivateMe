@@ -59,7 +59,7 @@ async def guidedMeditation(ctx):
     audio_source = discord.FFmpegPCMAudio(res.json()['mp3'])
     voice.play(audio_source,after=None)
 
-    await player.disconnect()
+    await channel.disconnect()
     
     
 client.run(token)

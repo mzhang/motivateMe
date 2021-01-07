@@ -3,13 +3,16 @@ from dotenv import load_dotenv
 
 import discord
 from discord.ext import commands
+import nacl
 
 from bs4 import BeautifulSoup
 import requests
 
 load_dotenv()
 token = os.getenv('DISCORD_TOKEN')
+
 client = commands.Bot(command_prefix = ".", help_command=None)
+
 
 @client.command()
 async def beep(ctx):
@@ -33,4 +36,18 @@ async def motivate(ctx):
     else:
         await ctx.send("Tranquility not yet available.")
 
+@client.command(aliases=['gm','guide','guided','guidedmeditation'])
+async def guidedMeditation(ctx):
+    id = requests.get('https://inspirobot.me//api?getSessionID=1').text
+    res = requests.get('https://inspirobot.me/api?generateFlow=1&sessionID='+id)
+
+    voiceChannel = ctx.author.voice.channel
+    await voiceChannel.connect()
+    
+    voice = discord.utils.get(client.voice_clients,guild=ctx.guild)
+
+    audio_source = discord.FFmpegPCMAudio(res.json()['mp3'])
+    voice.play(audio_source,after=None)
+  
+    print(id)
 client.run(token)

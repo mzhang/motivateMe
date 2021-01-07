@@ -9,7 +9,7 @@ a discord bot for when you need resolve.
 
 [.motivate] for a dose of motivation. 
 
-[.meditate] for a guided meditation session. How long? Forever.  
+[.meditate] for a guided meditation session. For how long? Forever.  
 
 Invite at: 
 

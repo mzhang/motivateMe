@@ -40,6 +40,7 @@ async def motivate(ctx):
 async def leave(ctx):
     voice = discord.utils.get(client.voice_clients,guild=ctx.guild)
     await voice.disconnect()
+    
 
 def play(voice, id):
     res = requests.get('https://inspirobot.me/api?generateFlow=1&sessionID='+id)
